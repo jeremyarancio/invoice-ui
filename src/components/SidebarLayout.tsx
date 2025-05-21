@@ -1,4 +1,8 @@
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import {
+    SidebarInset,
+    SidebarProvider,
+    SidebarTrigger,
+} from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 import { useState } from "react";
 
@@ -7,15 +11,17 @@ export default function SidebarLayout({
 }: {
     children: React.ReactNode;
 }) {
-    const [open, setOpen] = useState(true)
+    const [open, setOpen] = useState(true);
 
     return (
         <SidebarProvider open={open} onOpenChange={setOpen}>
             <AppSidebar />
-            <main>
-                <SidebarTrigger />
-                {children}
-            </main>
+            <SidebarInset>
+                <main>
+                    <SidebarTrigger />
+                    {children}
+                </main>
+            </SidebarInset>
         </SidebarProvider>
     );
 }

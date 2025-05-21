@@ -6,7 +6,7 @@ function Invoices() {
             <div className="mt-15 ml-10">
                 <h1>Invoice</h1>
                 <div className="flex justify-center justify-items-center">
-                    <Input placeholder="Search" size={30}></Input>
+                    <Input placeholder="Search" className=""></Input>
                 </div>
             </div>
         </>

@@ -5,15 +5,15 @@
 
 @layer base {
   h1 {
-    @apply text-lg font-bold font-mono tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-6xl;
+    @apply text-3xl font-bold font-mono tracking-tight text-gray-900 dark:text-white;
   }
   
   h2 {
-    @apply text-lg font-semibold font-mono tracking-tight text-gray-800 dark:text-gray-100 md:text-4xl lg:text-5xl;
+    @apply text-2xl font-semibold font-mono tracking-tight text-gray-800 dark:text-gray-100;
   }
   
   h3 {
-    @apply text-sm font-medium font-mono text-gray-700 dark:text-gray-200 md:text-3xl lg:text-4xl;
+    @apply text-xl font-medium font-mono text-gray-700 dark:text-gray-200;
   }
 
   :root {
