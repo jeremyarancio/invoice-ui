@@ -1,0 +1,32 @@
+export const invoices = [
+    {
+        invoiceNumber: "FR0001",
+        amount: 150,
+        currency: "$",
+        date: new Date("10/02/2025"),
+        status: "paid" as const,
+        customerId: "é45645130",
+        description: "Mission Molia",
+        dueDate: new Date("10/03/2025"),
+    },
+    {
+        invoiceNumber: "152465",
+        amount: 400,
+        currency: "€",
+        date: new Date("10/02/2025"),
+        status: "unpaid" as const,
+        customerId: "é45645130",
+        description: "ML Consulting",
+        dueDate: new Date("10/03/2025"),
+    },
+    {
+        invoiceNumber: "FR001",
+        amount: 2000,
+        currency: "$",
+        date: new Date("02/14/2025",),
+        status: "unpaid" as const,
+        customerId: "é45645130",
+        description: "ML Consulting",
+        dueDate: new Date("10/03/2025"),
+    },
+];
