@@ -15,7 +15,7 @@ function CardToggle() {
                     </button>
                 </PopoverTrigger>
                 <PopoverContent className="bg-stone-50 w-30">
-                    <div className="font-base space-y-1 grid grid-cols-1 ">
+                    <div className="font-base space-y-2 grid grid-cols-1 ">
                         <button className="flex items-center space-x-2 w-full hover:bg-stone-100 hover:cursor-pointer">
                             <Pencil />
                             <p>Edit</p>
