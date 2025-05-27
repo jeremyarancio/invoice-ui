@@ -11,7 +11,7 @@ export const invoices = [
     },
     {
         invoiceNumber: "152465",
-        amount: 400,
+        amount: 11250,
         currency: "€",
         date: new Date("10/02/2025"),
         status: "unpaid" as const,
