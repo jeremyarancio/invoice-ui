@@ -1,25 +1,24 @@
-import InvoiceCard from "@/components/InvoiceCard";
+import ClientCard from "@/components/ClientCard";
 import { Input } from "@/components/ui/input";
-import { invoices } from "@/types/invoices";
+import { clients } from "@/types/clients";
 
 function Clients() {
     return (
         <>
-            <div className="w-full mt-15 max-w-96 px-4 mb-20 mx-auto">
-                <h1 className="text-left">Invoice</h1>
-                <div className="flex justify-center mt-5">
-                    <Input placeholder="Search"></Input>
-                </div>
+            <h1 className="text-left mt-15 ml-15">Clients</h1>
+            <div className="max-w-96 px-4 mb-20 mx-auto mt-5">
+                <Input placeholder="Search"></Input>
             </div>
-            <div className="flex flex-col space-y-4 mt-5 mx-auto max-w-4xl px-4">
-                {invoices.map((invoice) => (
-                    <InvoiceCard
-                        invoiceDescription={invoice.description}
-                        amount={invoice.amount}
-                        invoiceNumber={invoice.invoiceNumber}
-                        date={invoice.date}
-                        status={invoice.status}
-                        currency={invoice.currency}
+            <div className="flex flex-col space-y-2 mt-5 mx-auto max-w-4xl px-4">
+                {clients.map((client) => (
+                    <ClientCard
+                        key={client.clientName}
+                        client_name={client.clientName}
+                        totalInvoiceNumber={client.totalInvoiceNumber}
+                        totalInvoiceAmount={client.totalInvoiceAmount}
+                        totalInvoiceAmountCurrency={
+                            client.totalInvoiceAmountCurrency
+                        }
                     />
                 ))}
             </div>
