@@ -1,4 +1,4 @@
-import InvoiceElement from "@/components/InvoiceElement";
+import InvoiceCard from "@/components/InvoiceCard";
 import { Input } from "@/components/ui/input";
 import { invoices } from "@/types/invoices";
 
@@ -13,7 +13,7 @@ function Clients() {
             </div>
             <div className="flex flex-col space-y-4 mt-5 mx-auto max-w-4xl px-4">
                 {invoices.map((invoice) => (
-                    <InvoiceElement
+                    <InvoiceCard
                         invoiceDescription={invoice.description}
                         amount={invoice.amount}
                         invoiceNumber={invoice.invoiceNumber}
