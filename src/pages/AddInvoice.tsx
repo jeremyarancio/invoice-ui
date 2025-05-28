@@ -8,21 +8,55 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/ui/form";
+import { format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover";
 import { Input } from "@/components/ui/input";
 import { ArrowLeft } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { cn } from "@/lib/utils";
+
+const CURRENCIES = ["$", "€"];
 
 function AddInvoice() {
     const formSchema = z.object({
-        username: z.string().min(1, "Username is required"),
+        invoiceNumber: z.string().min(1, "Invoice number is required"),
+        invoiceDescription: z
+            .string()
+            .min(1, "Invoice description is required")
+            .max(100, "Invoice description must be less than 100 characters"),
+        grossAmount: z
+            .number()
+            .min(0, "Gross amount must be a positive number")
+            .max(1000000, "Gross amount must be less than 1,000,000"),
+        currency: z.string(),
+        vat: z.number().min(0).max(50),
+        client: z.string(),
+        invoicedDate: z
+            .date()
+            .min(new Date("1900-01-01"), "Enter a valid date")
+            .max(new Date(), "Date cannot be in the future"),
+        paidDate: z.date(),
     });
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            username: "",
+            invoiceNumber: "",
         },
     });
 
@@ -34,15 +68,18 @@ function AddInvoice() {
         <>
             <div className="flex justify-around mt-10">
                 <button className="hover:cursor-pointer">
-                    <ArrowLeft size={40} />
+                    <ArrowLeft
+                        size={40}
+                        className="rounded-full hover:bg-stone-50"
+                    />
                 </button>
                 <Button className="bg-stone-100 hover:bg-stone-200 hover:cursor-pointer text-grey-200">
                     Add Invoice
                 </Button>
             </div>
-            <div className="flex mt-15 justify-around">
-                <div className="bg-gray-100 w-100 h-150 ">PDF</div>
-                <div className="mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-20">
+                <div className="bg-gray-100 mx-4">PDF</div>
+                <div className="p-4 md:p-10">
                     <Form {...form}>
                         <form
                             onSubmit={form.handleSubmit(onSubmit)}
@@ -50,24 +87,225 @@ function AddInvoice() {
                         >
                             <FormField
                                 control={form.control}
-                                name="username"
+                                name="invoiceNumber"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Username</FormLabel>
+                                        <FormLabel>
+                                            Invoice Number
+                                            <span className="text-red-600">
+                                                *
+                                            </span>
+                                        </FormLabel>
                                         <FormControl>
                                             <Input
-                                                placeholder="shadcn"
+                                                placeholder="FR0001"
                                                 {...field}
                                             />
                                         </FormControl>
                                         <FormDescription>
-                                            This is your public display name.
+                                            The invoice number should be unique
                                         </FormDescription>
                                         <FormMessage />
                                     </FormItem>
                                 )}
                             />
-                            <Button type="submit">Submit</Button>
+                            <FormField
+                                control={form.control}
+                                name="invoiceDescription"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>
+                                            Description
+                                            <span className="text-red-600">
+                                                *
+                                            </span>
+                                        </FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                placeholder="Consulting services"
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormDescription>
+                                            Brief summary of the completed
+                                            project.
+                                        </FormDescription>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="grossAmount"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>
+                                            Gross Amount
+                                            <span className="text-red-600">
+                                                *
+                                            </span>
+                                        </FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                placeholder="1000"
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="currency"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Currency</FormLabel>
+                                        <Select
+                                            onValueChange={field.onChange}
+                                            defaultValue={field.value}
+                                        >
+                                            <FormControl>
+                                                <SelectTrigger>
+                                                    <SelectValue placeholder="Select a currency." />
+                                                </SelectTrigger>
+                                            </FormControl>
+                                            <SelectContent className="bg-stone-50">
+                                                {CURRENCIES.map((currency) => (
+                                                    <SelectItem
+                                                        key={currency}
+                                                        value={currency}
+                                                    >
+                                                        {currency}
+                                                    </SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="invoicedDate"
+                                render={({ field }) => (
+                                    <FormItem className="flex flex-col">
+                                        <FormLabel>Invoiced Date</FormLabel>
+                                        <Popover>
+                                            <PopoverTrigger asChild>
+                                                <FormControl>
+                                                    <Button
+                                                        variant={"outline"}
+                                                        className={cn(
+                                                            "w-[240px] pl-3 text-left font-normal",
+                                                            !field.value &&
+                                                                "text-muted-foreground"
+                                                        )}
+                                                    >
+                                                        {field.value ? (
+                                                            format(
+                                                                field.value,
+                                                                "PPP"
+                                                            )
+                                                        ) : (
+                                                            <span>
+                                                                Pick a date
+                                                            </span>
+                                                        )}
+                                                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                                    </Button>
+                                                </FormControl>
+                                            </PopoverTrigger>
+                                            <PopoverContent
+                                                className="w-auto p-0 bg-stone-50"
+                                                align="start"
+                                            >
+                                                <Calendar
+                                                    mode="single"
+                                                    selected={field.value}
+                                                    onSelect={field.onChange}
+                                                    disabled={(date) =>
+                                                        date > new Date() ||
+                                                        date <
+                                                            new Date(
+                                                                "1900-01-01"
+                                                            )
+                                                    }
+                                                    initialFocus
+                                                />
+                                            </PopoverContent>
+                                        </Popover>
+                                        <FormDescription>
+                                            The date when the invoice was
+                                            issued.
+                                        </FormDescription>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="paidDate"
+                                render={({ field }) => (
+                                    <FormItem className="flex flex-col">
+                                        <FormLabel>Paid Date</FormLabel>
+                                        <Popover>
+                                            <PopoverTrigger asChild>
+                                                <FormControl>
+                                                    <Button
+                                                        variant={"outline"}
+                                                        className={cn(
+                                                            "w-[240px] pl-3 text-left font-normal",
+                                                            !field.value &&
+                                                                "text-muted-foreground"
+                                                        )}
+                                                    >
+                                                        {field.value ? (
+                                                            format(
+                                                                field.value,
+                                                                "PPP"
+                                                            )
+                                                        ) : (
+                                                            <span>
+                                                                Pick a date
+                                                            </span>
+                                                        )}
+                                                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                                    </Button>
+                                                </FormControl>
+                                            </PopoverTrigger>
+                                            <PopoverContent
+                                                className="w-auto p-0 bg-stone-50"
+                                                align="start"
+                                            >
+                                                <Calendar
+                                                    mode="single"
+                                                    selected={field.value}
+                                                    onSelect={field.onChange}
+                                                    disabled={(date) =>
+                                                        date > new Date() ||
+                                                        date <
+                                                            new Date(
+                                                                "1900-01-01"
+                                                            )
+                                                    }
+                                                    initialFocus
+                                                />
+                                            </PopoverContent>
+                                        </Popover>
+                                        <FormDescription>
+                                            The date when the invoice was paid.
+                                        </FormDescription>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <Button
+                                type="submit"
+                                className="text-grey-200 bg-stone-100 hover:bg-stone-200"
+                            >
+                                Submit
+                            </Button>
                         </form>
                     </Form>
                 </div>
