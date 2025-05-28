@@ -1,11 +1,26 @@
 import InvoiceCard from "@/components/InvoiceCard";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { invoices } from "@/types/invoices";
+import { useNavigate } from "react-router-dom";
 
 function Invoices() {
+    const navigate = useNavigate();
+
     return (
         <>
-            <h1 className="text-left mt-15 ml-15">Invoice</h1>
+            <div className="my-12">
+                <div className="flex justify-around ">
+                    <h1>Invoice</h1>
+                    <Button
+                        onClick={() => navigate("/invoices/add")}
+                        className="bg-stone-100 hover:bg-stone-200 hover:cursor-pointer text-grey-200"
+                    >
+                        Add Invoice
+                    </Button>
+                </div>
+            </div>
+
             <div className="max-w-96 px-4 mb-20 mx-auto mt-5">
                 <Input placeholder="Search"></Input>
             </div>
@@ -13,10 +28,10 @@ function Invoices() {
                 {invoices.map((invoice) => (
                     <InvoiceCard
                         key={invoice.invoiceNumber}
-                        invoiceDescription={invoice.description}
-                        amount={invoice.amount}
+                        invoiceDescription={invoice.invoiceDescription}
+                        grossAmount={invoice.grossAmount}
                         invoiceNumber={invoice.invoiceNumber}
-                        date={invoice.date}
+                        issuedDate={invoice.issuedDate}
                         status={invoice.status}
                         currency={invoice.currency}
                     />

@@ -12,8 +12,8 @@ function App() {
                 <SidebarLayout>
                     <Routes>
                         <Route path="/invoices" element={<Invoices />} />
+                        <Route path="/invoices/add" element={<AddInvoice />} />
                         <Route path="/clients" element={<Clients />} />
-                        <Route path="invoices/add" element={<AddInvoice />} />
                     </Routes>
                 </SidebarLayout>
             </BrowserRouter>

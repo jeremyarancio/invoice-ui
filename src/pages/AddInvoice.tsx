@@ -32,11 +32,13 @@ import { cn } from "@/lib/utils";
 import { clients } from "@/types/clients";
 import { useState } from "react";
 import AppAlert from "@/components/AppAlert";
+import { useNavigate } from "react-router-dom";
 
 const CURRENCIES = ["$", "€"];
 
 function AddInvoice() {
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const navigate = useNavigate();
 
     const formSchema = z.object({
         invoiceNumber: z.string().min(1, "Invoice number is required"),
@@ -69,20 +71,16 @@ function AddInvoice() {
 
     return (
         <>
-            <div className="flex justify-around mt-10 ">
-                <button className="hover:cursor-pointer">
+            <div className="mt-10 ml-10">
+                <button
+                    onClick={() => navigate("/invoices")}
+                    className="hover:cursor-pointer"
+                >
                     <ArrowLeft
                         size={40}
                         className="rounded-full hover:bg-stone-50"
                     />
                 </button>
-                <Button
-                    onClick={() => form.handleSubmit(onSubmit)()}
-                    type="button"
-                    className="bg-stone-100 hover:bg-stone-200 hover:cursor-pointer text-grey-200"
-                >
-                    Add Invoice
-                </Button>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-20 mb-40">
                 <div className="bg-gray-100 mx-4">PDF</div>

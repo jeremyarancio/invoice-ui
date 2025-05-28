@@ -1,19 +1,20 @@
 import { AppCard } from "@/components/AppCard";
+import { format } from "date-fns";
 
 interface InvoiceCardProps {
     invoiceDescription: string;
-    amount: number;
+    grossAmount: number;
     invoiceNumber: string;
-    date: Date;
+    issuedDate: Date;
     status: "paid" | "unpaid" | "overdue";
     currency?: string;
 }
 
 function InvoiceCard({
     invoiceDescription,
-    amount,
+    grossAmount,
     invoiceNumber,
-    date,
+    issuedDate,
     status,
     currency,
 }: InvoiceCardProps) {
@@ -27,7 +28,7 @@ function InvoiceCard({
                             N° {invoiceNumber}
                         </p>
                         <p className="flex font-semibold">
-                            {date.toLocaleDateString()}
+                            {format(issuedDate, "dd/MM/yyyy")}
                         </p>
                     </div>
                     <div className="w-3/8"></div>
@@ -48,7 +49,7 @@ function InvoiceCard({
                                 : "Overdue"}
                         </p>
                         <p className="font-semibold">
-                            {amount} {currency}
+                            {grossAmount} {currency}
                         </p>
                     </div>
                 </div>
