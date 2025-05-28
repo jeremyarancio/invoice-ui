@@ -30,10 +30,14 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { cn } from "@/lib/utils";
 import { clients } from "@/types/clients";
+import { useState } from "react";
+import AppAlert from "@/components/AppAlert";
 
 const CURRENCIES = ["$", "€"];
 
 function AddInvoice() {
+    const [isSubmitted, setIsSubmitted] = useState(false);
+
     const formSchema = z.object({
         invoiceNumber: z.string().min(1, "Invoice number is required"),
         invoiceDescription: z
@@ -47,11 +51,8 @@ function AddInvoice() {
         currency: z.string(),
         vat: z.coerce.number().min(0).max(50),
         client: z.string(),
-        invoicedDate: z
-            .date()
-            .min(new Date("1900-01-01"), "Enter a valid date")
-            .max(new Date(), "Date cannot be in the future"),
-        paidDate: z.date(),
+        invoicedDate: z.date(),
+        paidDate: z.date().optional(),
     });
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -63,6 +64,7 @@ function AddInvoice() {
 
     function onSubmit(values: z.infer<typeof formSchema>) {
         console.log(values);
+        setIsSubmitted(true);
     }
 
     return (
@@ -166,7 +168,12 @@ function AddInvoice() {
                                 name="currency"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Currency</FormLabel>
+                                        <FormLabel>
+                                            Currency
+                                            <span className="text-red-600">
+                                                *
+                                            </span>
+                                        </FormLabel>
                                         <Select
                                             onValueChange={field.onChange}
                                             defaultValue={field.value}
@@ -218,7 +225,12 @@ function AddInvoice() {
                                 name="client"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Client</FormLabel>
+                                        <FormLabel>
+                                            Client
+                                            <span className="text-red-600">
+                                                *
+                                            </span>
+                                        </FormLabel>
                                         <Select
                                             onValueChange={field.onChange}
                                             defaultValue={field.value}
@@ -250,7 +262,12 @@ function AddInvoice() {
                                 name="invoicedDate"
                                 render={({ field }) => (
                                     <FormItem className="flex flex-col">
-                                        <FormLabel>Invoiced Date</FormLabel>
+                                        <FormLabel>
+                                            Invoiced Date
+                                            <span className="text-red-600">
+                                                *
+                                            </span>
+                                        </FormLabel>
                                         <Popover>
                                             <PopoverTrigger asChild>
                                                 <FormControl>
@@ -370,6 +387,7 @@ function AddInvoice() {
                     </Form>
                 </div>
             </div>
+            {isSubmitted && <AppAlert setCondClose={setIsSubmitted} />}
         </>
     );
 }
