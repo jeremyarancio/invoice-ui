@@ -29,6 +29,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { cn } from "@/lib/utils";
+import { clients } from "@/types/clients";
 
 const CURRENCIES = ["$", "€"];
 
@@ -39,12 +40,12 @@ function AddInvoice() {
             .string()
             .min(1, "Invoice description is required")
             .max(100, "Invoice description must be less than 100 characters"),
-        grossAmount: z
+        grossAmount: z.coerce // Number type
             .number()
             .min(0, "Gross amount must be a positive number")
             .max(1000000, "Gross amount must be less than 1,000,000"),
         currency: z.string(),
-        vat: z.number().min(0).max(50),
+        vat: z.coerce.number().min(0).max(50),
         client: z.string(),
         invoicedDate: z
             .date()
@@ -66,20 +67,24 @@ function AddInvoice() {
 
     return (
         <>
-            <div className="flex justify-around mt-10">
+            <div className="flex justify-around mt-10 ">
                 <button className="hover:cursor-pointer">
                     <ArrowLeft
                         size={40}
                         className="rounded-full hover:bg-stone-50"
                     />
                 </button>
-                <Button className="bg-stone-100 hover:bg-stone-200 hover:cursor-pointer text-grey-200">
+                <Button
+                    onClick={() => form.handleSubmit(onSubmit)()}
+                    type="button"
+                    className="bg-stone-100 hover:bg-stone-200 hover:cursor-pointer text-grey-200"
+                >
                     Add Invoice
                 </Button>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-20">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-20 mb-40">
                 <div className="bg-gray-100 mx-4">PDF</div>
-                <div className="p-4 md:p-10">
+                <div className="px-4 md:px-20">
                     <Form {...form}>
                         <form
                             onSubmit={form.handleSubmit(onSubmit)}
@@ -148,6 +153,7 @@ function AddInvoice() {
                                         <FormControl>
                                             <Input
                                                 placeholder="1000"
+                                                type="number"
                                                 {...field}
                                             />
                                         </FormControl>
@@ -177,6 +183,60 @@ function AddInvoice() {
                                                         value={currency}
                                                     >
                                                         {currency}
+                                                    </SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="vat"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>
+                                            VAT (%)
+                                            <span className="text-red-600">
+                                                *
+                                            </span>
+                                        </FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                placeholder="21"
+                                                type="number"
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="client"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Client</FormLabel>
+                                        <Select
+                                            onValueChange={field.onChange}
+                                            defaultValue={field.value}
+                                        >
+                                            <FormControl>
+                                                <SelectTrigger>
+                                                    <SelectValue placeholder="Select a Client." />
+                                                </SelectTrigger>
+                                            </FormControl>
+                                            <SelectContent className="bg-stone-50">
+                                                {clients.map((client) => (
+                                                    <SelectItem
+                                                        key={client.clientName}
+                                                        value={
+                                                            client.clientName
+                                                        }
+                                                    >
+                                                        {client.clientName}
                                                     </SelectItem>
                                                 ))}
                                             </SelectContent>
@@ -302,9 +362,9 @@ function AddInvoice() {
                             />
                             <Button
                                 type="submit"
-                                className="text-grey-200 bg-stone-100 hover:bg-stone-200"
+                                className="bg-stone-100 hover:bg-stone-200 hover:cursor-pointer text-grey-200"
                             >
-                                Submit
+                                Add Invoice
                             </Button>
                         </form>
                     </Form>
