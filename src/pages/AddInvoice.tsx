@@ -32,13 +32,15 @@ import { cn } from "@/lib/utils";
 import { clients } from "@/types/clients";
 import { useState } from "react";
 import AppAlert from "@/components/AppAlert";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import PdfPreview from "@/components/PdfPreview";
 
 const CURRENCIES = ["$", "€"];
 
 function AddInvoice() {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const navigate = useNavigate();
+    const file = useLocation().state.file;
 
     const formSchema = z.object({
         invoiceNumber: z.string().min(1, "Invoice number is required"),
@@ -82,9 +84,11 @@ function AddInvoice() {
                     />
                 </button>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-20 mb-40">
-                <div className="bg-gray-100 mx-4">PDF</div>
-                <div className="px-4 md:px-20">
+            <div className="flex mt-20 mb-40 justify-around">
+                <div className="px-4 flex justify-center">
+                    <PdfPreview file={file} />
+                </div>
+                <div className="px-4 md:px-20 w-full">
                     <Form {...form}>
                         <form
                             onSubmit={form.handleSubmit(onSubmit)}
@@ -211,6 +215,7 @@ function AddInvoice() {
                                             <Input
                                                 placeholder="21"
                                                 type="number"
+                                                className="max-w-30"
                                                 {...field}
                                             />
                                         </FormControl>
