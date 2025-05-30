@@ -69,6 +69,7 @@ function AddInvoice() {
     function onSubmit(values: z.infer<typeof formSchema>) {
         console.log(values);
         setIsSubmitted(true);
+        navigate("/invoices"); //Alert can be improved
     }
 
     return (
