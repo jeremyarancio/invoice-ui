@@ -4,7 +4,7 @@ import Invoices from "@/pages/Invoices";
 import Clients from "@/pages/Clients";
 import SidebarLayout from "./components/SidebarLayout";
 import AddInvoice from "@/pages/AddInvoice";
-import AddClient from "./components/AddClient";
+import AddClient from "@/pages/AddClient";
 
 function App() {
     return (

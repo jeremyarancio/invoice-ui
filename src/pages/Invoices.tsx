@@ -23,7 +23,7 @@ function Invoices() {
                 <h1>Invoices</h1>
                 <UploadInvoiceModal
                     trigger={
-                        <Button className="bg-stone-100 hover:bg-stone-200 hover:cursor-pointer text-grey-200 shadow-2xs hover:shadow-lg">
+                        <Button className="bg-stone-100 hover:bg-stone-200 hover:cursor-pointer text-gray-600 shadow-2xs hover:shadow-lg">
                             Add Invoice
                         </Button>
                     }

@@ -383,7 +383,7 @@ function AddInvoice() {
                             />
                             <Button
                                 type="submit"
-                                className="bg-stone-100 hover:bg-stone-200 hover:cursor-pointer text-grey-200"
+                                className="bg-stone-100 hover:bg-stone-200 hover:cursor-pointer text-gray-600"
                             >
                                 Add Invoice
                             </Button>
