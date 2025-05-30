@@ -12,7 +12,7 @@ function Clients() {
             <div className="flex justify-around my-12">
                 <h1>Clients</h1>
                 <Button
-                    onClick={() => navigate("/invoices/add")}
+                    onClick={() => navigate("/clients/add")}
                     className="bg-stone-100 hover:bg-stone-200 hover:cursor-pointer text-grey-200 shadow-2xs hover:shadow-lg"
                 >
                     Add Client

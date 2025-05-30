@@ -40,7 +40,7 @@ const CURRENCIES = ["$", "€"];
 function AddInvoice() {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const navigate = useNavigate();
-    const file = useLocation().state.file;
+    const file = useLocation().state?.file;
 
     const formSchema = z.object({
         invoiceNumber: z.string().min(1, "Invoice number is required"),

@@ -11,6 +11,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { user } from "@/types/user";
 
 // Menu items.
 const items = [
@@ -51,8 +52,18 @@ export function AppSidebar() {
                 </SidebarGroup>
             </SidebarContent>
             <SidebarFooter className="flex space-x-4">
-                <p>Jérémy Arancio</p>
-                <div className="w-8 h-8 rounded-full bg-amber-800 hover:bg-amber-900"></div>
+                <SidebarMenuButton
+                    size="lg"
+                    className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                >
+                    <div className="w-8 h-8 rounded-full bg-amber-800 hover:bg-amber-900"></div>
+                    <div className="grid flex-1 text-left text-sm">
+                        <span className="truncate font-medium">
+                            {user.username}
+                        </span>
+                        <span className="truncate text-xs">{user.email}</span>
+                    </div>
+                </SidebarMenuButton>
             </SidebarFooter>
         </Sidebar>
     );
