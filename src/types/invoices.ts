@@ -29,4 +29,13 @@ export const invoices = [
         issuedDate: new Date(2025, 4, 21),
         paidDate: new Date(2025, 9, 3),
     },
+    {
+        invoiceNumber: "EN0002",
+        grossAmount: 9500,
+        currency: "$",
+        status: "paid" as const,
+        customerId: "EHD",
+        invoiceDescription: "ML Document AI expertise",
+        issuedDate: new Date(2023, 2, 26),
+    },
 ];
