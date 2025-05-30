@@ -9,16 +9,14 @@ function Invoices() {
 
     return (
         <>
-            <div className="my-12">
-                <div className="flex justify-around ">
-                    <h1>Invoice</h1>
-                    <Button
-                        onClick={() => navigate("/invoices/add")}
-                        className="bg-stone-100 hover:bg-stone-200 hover:cursor-pointer text-grey-200"
-                    >
-                        Add Invoice
-                    </Button>
-                </div>
+            <div className="flex justify-around my-12">
+                <h1>Invoices</h1>
+                <Button
+                    onClick={() => navigate("/invoices/add")}
+                    className="bg-stone-100 hover:bg-stone-200 hover:cursor-pointer text-grey-200 shadow-2xs hover:shadow-lg"
+                >
+                    Add Invoice
+                </Button>
             </div>
 
             <div className="max-w-96 px-4 mb-20 mx-auto mt-5">

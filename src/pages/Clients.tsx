@@ -1,11 +1,23 @@
 import ClientCard from "@/components/ClientCard";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { clients } from "@/types/clients";
+import { useNavigate } from "react-router-dom";
 
 function Clients() {
+    const navigate = useNavigate();
+
     return (
         <>
-            <h1 className="text-left mt-15 ml-15">Clients</h1>
+            <div className="flex justify-around my-12">
+                <h1>Clients</h1>
+                <Button
+                    onClick={() => navigate("/invoices/add")}
+                    className="bg-stone-100 hover:bg-stone-200 hover:cursor-pointer text-grey-200 shadow-2xs hover:shadow-lg"
+                >
+                    Add Client
+                </Button>
+            </div>
             <div className="max-w-96 px-4 mb-20 mx-auto mt-5">
                 <Input placeholder="Search"></Input>
             </div>
