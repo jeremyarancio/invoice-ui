@@ -13,7 +13,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-function AddIndividualLayout() {
+interface Props {
+    setIsSubmitted: React.Dispatch<boolean>;
+}
+
+function AddIndividualLayout({ setIsSubmitted }: Props) {
     const formSchema = z.object({
         firstName: z.string(),
         lastName: z.string(),
@@ -30,6 +34,7 @@ function AddIndividualLayout() {
     });
 
     function onSubmit(values: z.infer<typeof formSchema>) {
+        setIsSubmitted(true);
         console.log(values);
     }
 

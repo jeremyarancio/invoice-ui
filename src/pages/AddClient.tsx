@@ -49,9 +49,9 @@ function AddClient() {
             </div>
             <div className="max-w-md mx-auto mb-30">
                 {clientType === "company" ? (
-                    <AddCompanyLayout />
+                    <AddCompanyLayout setIsSubmitted={setIsSubmitted} />
                 ) : (
-                    <AddIndividualLayout />
+                    <AddIndividualLayout setIsSubmitted={setIsSubmitted} />
                 )}
             </div>
             {isSubmitted && <AppAlert setCondClose={setIsSubmitted} />}

@@ -13,7 +13,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-function AddCompanyLayout() {
+interface Props {
+    setIsSubmitted: React.Dispatch<boolean>;
+}
+
+function AddCompanyLayout({ setIsSubmitted }: Props) {
     const formSchema = z.object({
         name: z.string(),
         address: z.string(),
@@ -28,6 +32,7 @@ function AddCompanyLayout() {
     });
 
     function onSubmit(values: z.infer<typeof formSchema>) {
+        setIsSubmitted(true);
         console.log(values);
     }
 
@@ -44,7 +49,7 @@ function AddCompanyLayout() {
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>
-                                    Invoice Number
+                                    Company's name
                                     <span className="text-red-600">*</span>
                                 </FormLabel>
                                 <FormControl>
@@ -127,10 +132,7 @@ function AddCompanyLayout() {
                         name="vatNumber"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>
-                                    VAT
-                                    <span className="text-red-600">*</span>
-                                </FormLabel>
+                                <FormLabel>VAT</FormLabel>
                                 <FormDescription>
                                     Company VAT number if exists.
                                 </FormDescription>
