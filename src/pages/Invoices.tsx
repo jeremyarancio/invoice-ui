@@ -1,5 +1,4 @@
 import InvoiceCard from "@/components/InvoiceCard";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import UploadInvoiceModal from "@/components/UploadInvoiceModal";
 import { invoices } from "@/types/invoices";
@@ -23,9 +22,9 @@ function Invoices() {
                 <h1>Invoices</h1>
                 <UploadInvoiceModal
                     trigger={
-                        <Button className="bg-stone-100 hover:bg-stone-200 hover:cursor-pointer text-gray-600 shadow-2xs hover:shadow-lg">
+                        <button className="button-primary">
                             Add Invoice
-                        </Button>
+                        </button>
                     }
                     handleUpload={handleUpload}
                     setSelectedFile={setSelectedFile}

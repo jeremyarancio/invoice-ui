@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { useState } from "react";
 import AppAlert from "@/components/AppAlert";
@@ -26,26 +25,26 @@ function AddClient() {
             </div>
             <p className="my-15 ml-30 md:ml-60 font-semibold">My client is</p>
             <div className="flex justify-center items-center space-x-6 mb-15">
-                <Button
+                <button
                     onClick={() => setClientType("company")}
-                    className={`bg-stone-100 hover:bg-stone-200 hover:cursor-pointer text-gray-600 ${
+                    className={`button-primary ${
                         clientType === "company"
                             ? "bg-stone-600 text-gray-100"
                             : ""
                     }`}
                 >
                     A company
-                </Button>
-                <Button
+                </button>
+                <button
                     onClick={() => setClientType("individual")}
-                    className={`bg-stone-100 hover:bg-stone-200 hover:cursor-pointer text-gray-600 ${
+                    className={`button-primary ${
                         clientType === "individual"
                             ? "bg-stone-600 text-gray-100"
                             : ""
                     }`}
                 >
                     An individual
-                </Button>
+                </button>
             </div>
             <div className="max-w-md mx-auto mb-30">
                 {clientType === "company" ? (

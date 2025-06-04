@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
     Form,
     FormControl,
@@ -160,12 +159,12 @@ function AddIndividualLayout({ setIsSubmitted }: Props) {
                             </FormItem>
                         )}
                     />
-                    <Button
+                    <button
                         type="submit"
-                        className="bg-stone-100 hover:bg-stone-200 hover:cursor-pointer text-gray-600"
+                        className="button-primary"
                     >
                         Add Client
-                    </Button>
+                    </button>
                 </form>
             </Form>
         </>

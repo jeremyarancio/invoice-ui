@@ -1,5 +1,4 @@
 import ClientCard from "@/components/ClientCard";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { clients } from "@/types/clients";
 import { useNavigate } from "react-router-dom";
@@ -11,12 +10,12 @@ function Clients() {
         <>
             <div className="flex justify-around my-12">
                 <h1>Clients</h1>
-                <Button
+                <button
                     onClick={() => navigate("/clients/add")}
-                    className="bg-stone-100 hover:bg-stone-200 hover:cursor-pointer text-gray-600 shadow-2xs hover:shadow-lg"
+                    className="button-primary"
                 >
                     Add Client
-                </Button>
+                </button>
             </div>
             <div className="max-w-96 px-4 mb-20 mx-auto mt-5">
                 <Input placeholder="Search"></Input>

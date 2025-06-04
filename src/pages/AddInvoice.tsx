@@ -381,12 +381,12 @@ function AddInvoice() {
                                     </FormItem>
                                 )}
                             />
-                            <Button
+                            <button
                                 type="submit"
-                                className="bg-stone-100 hover:bg-stone-200 hover:cursor-pointer text-gray-600"
+                                className="button-primary"
                             >
                                 Add Invoice
-                            </Button>
+                            </button>
                         </form>
                     </Form>
                 </div>

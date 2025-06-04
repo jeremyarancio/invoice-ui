@@ -1,6 +1,5 @@
 import { Document, Page, pdfjs } from "react-pdf";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
@@ -36,15 +35,15 @@ function PdfPreview({ file }: PdfPreviewProps) {
                 </Document>
             </div>
             <div className="flex justify-center space-x-2">
-                <Button onClick={handlePrevPage} disabled={pageNumber <= 1}>
+                <button onClick={handlePrevPage} disabled={pageNumber <= 1}>
                     Previous
-                </Button>
-                <Button
+                </button>
+                <button
                     onClick={handleNextPage}
                     disabled={pageNumber >= (numPages ?? -1)}
                 >
                     Next
-                </Button>
+                </button>
             </div>
         </div>
     );
