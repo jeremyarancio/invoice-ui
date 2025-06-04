@@ -8,6 +8,7 @@ import AddClient from "@/pages/AddClient";
 import SignIn from "@/pages/SignIn";
 import SignUp from "@/pages/SignUp";
 import { AuthLayout } from "./components/layouts/AuthLayout";
+import PageNotFound from "./pages/PageNotFound";
 
 function App() {
     return (
@@ -24,6 +25,7 @@ function App() {
                         <Route path="/clients" element={<Clients />} />
                         <Route path="/clients/add" element={<AddClient />} />
                     </Route>
+                    <Route path="/*" element={<PageNotFound />} />
                 </Routes>
             </BrowserRouter>
         </>
