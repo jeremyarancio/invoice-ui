@@ -5,12 +5,9 @@ import {
 } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 import { useState } from "react";
+import { Outlet } from "react-router-dom";
 
-export default function SidebarLayout({
-    children,
-}: {
-    children: React.ReactNode;
-}) {
+export default function SidebarLayout() {
     const [open, setOpen] = useState(true);
 
     return (
@@ -19,7 +16,7 @@ export default function SidebarLayout({
             <SidebarInset>
                 <main>
                     <SidebarTrigger />
-                    {children}
+                    <Outlet />
                 </main>
             </SidebarInset>
         </SidebarProvider>
