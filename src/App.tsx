@@ -9,6 +9,7 @@ import SignIn from "@/pages/SignIn";
 import SignUp from "@/pages/SignUp";
 import { AuthLayout } from "./components/layouts/AuthLayout";
 import PageNotFound from "./pages/PageNotFound";
+import UserProfile from "./pages/UserProfile";
 
 function App() {
     return (
@@ -24,6 +25,7 @@ function App() {
                         <Route path="/invoices/add" element={<AddInvoice />} />
                         <Route path="/clients" element={<Clients />} />
                         <Route path="/clients/add" element={<AddClient />} />
+                        <Route path="/user" element={<UserProfile />} />
                     </Route>
                     <Route path="/*" element={<PageNotFound />} />
                 </Routes>
