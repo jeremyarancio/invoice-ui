@@ -4,11 +4,12 @@ import AppAlert from "@/components/AppAlert";
 import { useNavigate } from "react-router-dom";
 import AddCompanyLayout from "@/components/addClient/AddCompanyLayout";
 import AddIndividualLayout from "@/components/addClient/AddIndividualLayout";
+import { useIsSubmittedAlert } from "@/hooks/alert-hooks";
 
 function AddClient() {
     const [clientType, setClientType] = useState<string>("company");
-    const [isSubmitted, setIsSubmitted] = useState(false);
     const navigate = useNavigate();
+    const { isSubmitted } = useIsSubmittedAlert();
 
     return (
         <>
@@ -48,12 +49,12 @@ function AddClient() {
             </div>
             <div className="max-w-md mx-auto mb-30">
                 {clientType === "company" ? (
-                    <AddCompanyLayout setIsSubmitted={setIsSubmitted} />
+                    <AddCompanyLayout />
                 ) : (
-                    <AddIndividualLayout setIsSubmitted={setIsSubmitted} />
+                    <AddIndividualLayout />
                 )}
             </div>
-            {isSubmitted && <AppAlert setCondClose={setIsSubmitted} />}
+            {isSubmitted && <AppAlert />}
         </>
     );
 }

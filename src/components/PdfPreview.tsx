@@ -24,7 +24,7 @@ function PdfPreview({ file }: PdfPreviewProps) {
     };
 
     return (
-        <div className="flex-col">
+        <div className="flex-col space-y-4">
             <div>
                 <Document file={file} onLoadSuccess={onDocumentLoadSuccess}>
                     <Page
@@ -35,12 +35,17 @@ function PdfPreview({ file }: PdfPreviewProps) {
                 </Document>
             </div>
             <div className="flex justify-center space-x-2">
-                <button onClick={handlePrevPage} disabled={pageNumber <= 1}>
+                <button
+                    onClick={handlePrevPage}
+                    disabled={pageNumber <= 1}
+                    className="button-secondary"
+                >
                     Previous
                 </button>
                 <button
                     onClick={handleNextPage}
                     disabled={pageNumber >= (numPages ?? -1)}
+                    className="button-secondary"
                 >
                     Next
                 </button>

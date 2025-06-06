@@ -34,13 +34,18 @@ import { useState } from "react";
 import AppAlert from "@/components/AppAlert";
 import { useNavigate, useLocation } from "react-router-dom";
 import PdfPreview from "@/components/PdfPreview";
+import NewClientModal from "@/components/NewClientModal";
+import { useIsSubmittedAlert } from "@/hooks/alert-hooks";
 
 const CURRENCIES = ["$", "€"];
 
 function AddInvoice() {
-    const [isSubmitted, setIsSubmitted] = useState(false);
+    const [isClientModalOpen, setIsClientModalOpen] = useState(false);
+
     const navigate = useNavigate();
     const file = useLocation().state?.file;
+
+    const { isSubmitted, setIsSubmitted } = useIsSubmittedAlert();
 
     const formSchema = z.object({
         invoiceNumber: z.string().min(1, "Invoice number is required"),
@@ -72,8 +77,18 @@ function AddInvoice() {
         navigate("/invoices"); //Alert can be improved
     }
 
+    const handleNewClient = () => {
+        setIsClientModalOpen(true);
+    };
+
     return (
         <>
+            {isClientModalOpen && (
+                <NewClientModal
+                    isOpen={true}
+                    onClose={() => setIsClientModalOpen(false)}
+                />
+            )}
             <div className="mt-10 ml-10">
                 <button
                     onClick={() => navigate("/invoices")}
@@ -235,28 +250,39 @@ function AddInvoice() {
                                                 *
                                             </span>
                                         </FormLabel>
-                                        <Select
-                                            onValueChange={field.onChange}
-                                            defaultValue={field.value}
-                                        >
-                                            <FormControl>
-                                                <SelectTrigger>
-                                                    <SelectValue placeholder="Select a Client." />
-                                                </SelectTrigger>
-                                            </FormControl>
-                                            <SelectContent className="bg-stone-50">
-                                                {clients.map((client) => (
-                                                    <SelectItem
-                                                        key={client.clientName}
-                                                        value={
-                                                            client.clientName
-                                                        }
-                                                    >
-                                                        {client.clientName}
-                                                    </SelectItem>
-                                                ))}
-                                            </SelectContent>
-                                        </Select>
+                                        <div className="flex gap-2 items-center">
+                                            <Select
+                                                onValueChange={field.onChange}
+                                                defaultValue={field.value}
+                                            >
+                                                <FormControl>
+                                                    <SelectTrigger>
+                                                        <SelectValue placeholder="Select a Client" />
+                                                    </SelectTrigger>
+                                                </FormControl>
+                                                <SelectContent className="bg-stone-50">
+                                                    {clients.map((client) => (
+                                                        <SelectItem
+                                                            key={
+                                                                client.clientName
+                                                            }
+                                                            value={
+                                                                client.clientName
+                                                            }
+                                                        >
+                                                            {client.clientName}
+                                                        </SelectItem>
+                                                    ))}
+                                                </SelectContent>
+                                            </Select>
+                                            <button
+                                                className="button-secondary"
+                                                type="button"
+                                                onClick={handleNewClient}
+                                            >
+                                                New client
+                                            </button>
+                                        </div>
                                         <FormMessage />
                                     </FormItem>
                                 )}
@@ -381,17 +407,14 @@ function AddInvoice() {
                                     </FormItem>
                                 )}
                             />
-                            <button
-                                type="submit"
-                                className="button-primary"
-                            >
+                            <button type="submit" className="button-primary">
                                 Add Invoice
                             </button>
                         </form>
                     </Form>
                 </div>
             </div>
-            {isSubmitted && <AppAlert setCondClose={setIsSubmitted} />}
+            {isSubmitted && <AppAlert />}
         </>
     );
 }

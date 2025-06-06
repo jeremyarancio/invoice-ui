@@ -8,15 +8,14 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useIsSubmittedAlert } from "@/hooks/alert-hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-interface Props {
-    setIsSubmitted: React.Dispatch<boolean>;
-}
+function AddIndividualLayout() {
+    const { setIsSubmitted } = useIsSubmittedAlert();
 
-function AddIndividualLayout({ setIsSubmitted }: Props) {
     const formSchema = z.object({
         firstName: z.string(),
         lastName: z.string(),
@@ -159,10 +158,7 @@ function AddIndividualLayout({ setIsSubmitted }: Props) {
                             </FormItem>
                         )}
                     />
-                    <button
-                        type="submit"
-                        className="button-primary"
-                    >
+                    <button type="submit" className="button-primary">
                         Add Client
                     </button>
                 </form>

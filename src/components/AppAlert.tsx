@@ -1,12 +1,10 @@
 import { Check, X } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
+import { useIsSubmittedAlert } from "@/hooks/alert-hooks";
 
-interface Props {
-    setCondClose: (condClose: boolean) => void;
-    message?: string;
-}
+function AppAlert() {
+    const { setIsSubmitted } = useIsSubmittedAlert();
 
-function AppAlert( { setCondClose }: Props) {
     return (
         <div className="flex sticky justify-end bottom-3 mr-10 transition duration-500">
             <Alert className="w-sm flex justify-start">
@@ -19,7 +17,7 @@ function AppAlert( { setCondClose }: Props) {
                 </div>
                 <button
                     className="ml-auto"
-                    onClick={() => setCondClose(false)}
+                    onClick={() => setIsSubmitted(false)}
                 >
                     <X />
                 </button>

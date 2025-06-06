@@ -8,15 +8,14 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useIsSubmittedAlert } from "@/hooks/alert-hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-interface Props {
-    setIsSubmitted: React.Dispatch<boolean>;
-}
+function AddCompanyLayout() {
+    const { setIsSubmitted } = useIsSubmittedAlert();
 
-function AddCompanyLayout({ setIsSubmitted }: Props) {
     const formSchema = z.object({
         name: z.string(),
         address: z.string(),
@@ -142,10 +141,7 @@ function AddCompanyLayout({ setIsSubmitted }: Props) {
                             </FormItem>
                         )}
                     />
-                    <button
-                        type="submit"
-                        className="button-primary"
-                    >
+                    <button type="submit" className="button-primary">
                         Add Client
                     </button>
                 </form>

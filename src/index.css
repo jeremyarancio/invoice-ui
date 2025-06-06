@@ -44,6 +44,10 @@
     .button-primary {
         @apply bg-stone-100 hover:bg-stone-200 hover:cursor-pointer ring-1 ring-stone-200 font-semibold text-gray-600 rounded-lg px-2 h-10 shadow-lg;
     }
+
+    .button-secondary {
+        @apply bg-zinc-200 hover:bg-zinc-400 hover:cursor-pointer hover:text-white ring-1 ring-zinc-200 font-semibold rounded-lg px-2 h-8 text-sm;
+    }
 }
 
 @theme inline {
